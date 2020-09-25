@@ -1,1 +1,69 @@
-<p>finder works!</p>
+<div class="finder d-flex flex-row">
+  <div class="finder-header d-flex flex-column">
+    <div class="finder-header-title d-flex flex-column text-center">
+      <i class="fas fa-search"></i>
+      <span>Buscar Personas</span>
+    </div>
+    <div class="finder-header-options pull-right d-flex flex-column">
+      <div class="form-group">
+        <input id="person_name" type="text" class="form-control" placeholder="Ej: Hernán Feliú" [(ngModel)]="personSearchText" (keyup)="filterPersons()">
+      </div>
+    </div>
+  </div>
+  <div class="finder-list">
+    <div class="finder-list-filters d-flex flex-row">
+      <span>Filtrar por:</span>
+      <div class="btn-group ml-3" dropdown>
+        <button id="region" dropdownToggle type="button" class="btn btn btn-dark btn-sm rounded-pill dropdown-toggle px-3"
+                aria-controls="dropdown-region">
+          {{ regionDropdownText | lowercase | titlecase }}
+        </button>
+        <ul id="dropdown-region" *dropdownMenu class="dropdown-menu mt-1" role="menu" aria-labelledby="region">
+          <li *ngFor="let region of regionsList" role="menuitem" class="dropdown-item" (click)="setRegion(region)">
+              {{ region.nombre | lowercase | titlecase }} <i *ngIf="regionSelected !== null && regionSelected !== undefined && regionSelected.id === region.id" class="fas fa-check-circle ml-auto"></i>
+          </li>
+        </ul>
+      </div>
+      <div class="btn-group ml-3" dropdown>
+        <button id="district" dropdownToggle type="button" class="btn btn-dark btn-sm rounded-pill dropdown-toggle px-3"
+                aria-controls="dropdown-district">
+                {{ districtDropdownText | lowercase | titlecase }}
+        </button>
+        <ul id="dropdown-district" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="district">
+          <ng-container *ngIf="districtsList === null || districtsList === undefined || districtsList.length === 0">
+            <li role="menuitem" class="dropdown-item empty text-danger">
+              Debes seleccionar una región
+            </li>
+          </ng-container>
+          <ng-container *ngIf="districtsList !== null && districtsList !== undefined && districtsList.length > 0">
+            <li *ngFor="let district of districtsList" role="menuitem" class="dropdown-item" (click)="setDistrict(district)">
+              {{ district.nombre | lowercase | titlecase }} <i *ngIf="districtSelected !== null && districtSelected !== undefined && districtSelected.id === district.id" class="fas fa-check-circle ml-auto"></i>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+      <button id="cleanFilters" type="button" class="btn btn-danger btn-sm rounded-pill px-3 ml-3" (click)="clearFilters()">
+          <i class="fas fa-trash-alt"></i>
+      </button>
+    </div>
+    <div class="finder-list-results">
+      <div *ngIf="personsEmpty === false" class="results-container-full row animate__animated animate__fadeIn">
+        <div *ngFor="let person of personsListFiltered" class="col-6">
+          <div class="person d-flex flex-row align-items-center">
+            <span class="person-name">
+              {{ person.nombre }} {{ person.apellido }}
+            </span>
+            <span type="button" class="person-action ml-auto">
+              <i class="fas fa-address-book"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="personsEmpty === true" class="results-container-empty animate__animated animate__fadeIn">
+        <i class="fas fa-user-times"></i>
+        <span>No se encontraron resultados</span>
+      </div>
+    </div>
+  </div>
+</div>
+
