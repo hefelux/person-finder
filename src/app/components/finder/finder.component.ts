@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 // SERVICES
 import { PersonService } from '../../services/person.service';
 import { RegionService } from '../../services/region.service';
@@ -29,6 +29,8 @@ export class FinderComponent implements OnInit {
   districtsEmpty: boolean;
   districtSelected: District;
   districtDropdownText = 'Comuna';
+  // Person Details
+  @ViewChild('PersonDetails') PersonDetails;
 
   constructor(
     private personService: PersonService,
@@ -210,6 +212,9 @@ export class FinderComponent implements OnInit {
     this.filterPersons();
   }
 
-
+  /** Método para mostrar detalles de persona */
+  showPersonDetails(person: Person): void {
+    this.PersonDetails.open(person);
+  }
 
 }

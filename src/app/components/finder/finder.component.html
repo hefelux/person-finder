@@ -1,4 +1,4 @@
-<div class="finder d-flex flex-row">
+<div class="finder d-flex flex-row animate__animated animate__fadeIn">
   <div class="finder-header d-flex flex-column">
     <div class="finder-header-title d-flex flex-column text-center">
       <i class="fas fa-search"></i>
@@ -6,7 +6,7 @@
     </div>
     <div class="finder-header-options pull-right d-flex flex-column">
       <div class="form-group">
-        <input id="person_name" type="text" class="form-control" placeholder="Ej: Hernán Feliú" [(ngModel)]="personSearchText" (keyup)="filterPersons()">
+        <input id="person_name" type="text" class="form-control" placeholder="Nombre o Apellido" [(ngModel)]="personSearchText" (keyup)="filterPersons()">
       </div>
     </div>
   </div>
@@ -49,7 +49,7 @@
     <div class="finder-list-results">
       <div *ngIf="personsEmpty === false" class="results-container-full row animate__animated animate__fadeIn">
         <div *ngFor="let person of personsListFiltered" class="col-6">
-          <div class="person d-flex flex-row align-items-center">
+          <div class="person d-flex flex-row align-items-center" (click)="showPersonDetails(person)">
             <span class="person-name">
               {{ person.nombre }} {{ person.apellido }}
             </span>
@@ -66,4 +66,6 @@
     </div>
   </div>
 </div>
+
+<app-person-details #PersonDetails></app-person-details>
 

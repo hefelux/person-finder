@@ -1,0 +1,32 @@
+<div class="person-details" [@showDetails]="state">
+  <div class="w-100 text-right">
+    <span class="close-icon" (click)="close()"><i class="fas fa-times"></i></span>
+  </div>
+  <div *ngIf="person !== null" class="full animate__animated animate__fadeIn">
+    <div class="details-header">
+      <i class="fas fa-user-circle"></i>
+      <h4>{{ person.nombre }} {{ person.apellido }}</h4>
+    </div>
+    <div class="details-body">
+      <div class="person-details-item">
+        <span class="label">Rut</span>
+        <span class="detail">{{ person.rut }}</span>
+        <span *ngIf="!verifyRut(person.rut)" class="detail-error-message"><b>Precaución</b><br> Este Rut posee un formato correcto.</span>
+      </div>
+      <div class="person-details-item">
+        <span class="label">Teléfono</span>
+        <span class="detail">{{ person.telefono }}</span>
+        <span *ngIf="!verifyPhoneNumber(person.telefono)" class="detail-error-message"><b>Precaución</b><br> Este Teléfono posee un formato correcto.</span>
+      </div>
+      <div class="person-details-item">
+        <span class="label">Dirección</span>
+        <span class="detail">{{ person.direccion.calle }} #{{ person.direccion.numero }}. {{ person.direccion.comuna.nombre }}</span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="person === null" class="empty animate__animated animate__fadeIn">
+    <i class="fas fa-user-times"></i>
+    <span>No hemos podido cargar los detalles de la persona seleccionada. Intenta nuevamente.</span>
+  </div>
+
+</div>

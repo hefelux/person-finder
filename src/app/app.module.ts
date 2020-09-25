@@ -8,11 +8,13 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FinderComponent } from './components/finder/finder.component';
+import { PersonDetailsComponent } from './components/person-details/person-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FinderComponent
+    FinderComponent,
+    PersonDetailsComponent
   ],
   imports: [
     BrowserModule,
